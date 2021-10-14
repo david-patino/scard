@@ -72,21 +72,6 @@ func (ctx *Context) Release() error {
 }
 
 // wraps SCardListReaders
-func (ctx *Context) ListReaders() ([]string, error) {
-	needed, r := scardListReaders(ctx.ctx, nil, nil, 0)
-	if r != ErrSuccess {
-		return nil, r
-	}
-
-	buf := make(strbuf, needed)
-	n, r := scardListReaders(ctx.ctx, nil, buf.ptr(), uint32(len(buf)))
-	if r != ErrSuccess {
-		return nil, r
-	}
-	return decodemstr(buf[:n]), nil
-}
-
-// wraps SCardListReaders
 func (ctx *Context) ListReaders(groups string) ([]string, error) {
 	needed, r := scardListReaders(ctx.ctx, groups, nil, 0)
 	if r != ErrSuccess {
