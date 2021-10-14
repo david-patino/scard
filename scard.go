@@ -73,7 +73,7 @@ func (ctx *Context) Release() error {
 
 // wraps SCardListReaders
 func (ctx *Context) ListReaders(groups []string) ([]string, error) {
-    groupsBuf, _ := encodemstr(groups)
+	groupsBuf, _ := encodemstr(groups)
 
 	needed, r := scardListReaders(ctx.ctx, groupsBuf.ptr(), nil, 0)
 	if r != ErrSuccess {
