@@ -72,8 +72,8 @@ func (ctx *Context) Release() error {
 }
 
 // wraps SCardListReaders
-func (ctx *Context) ListReaders(groups []string) ([]string, error) {
-	groupsBuf, _ := encodemstr(groups)
+func (ctx *Context) ListReaders(groups ...string) ([]string, error) {
+	groupsBuf, _ := encodemstr(groups...)
 
 	needed, r := scardListReaders(ctx.ctx, groupsBuf.ptr(), nil, 0)
 	if r != ErrSuccess {
@@ -285,7 +285,7 @@ func (buf strbuf) split() []strbuf {
 	return chunks
 }
 
-func encodemstr(strings []string) (strbuf, error) {
+func encodemstr(strings ...string) (strbuf, error) {
 	var buf strbuf
 	for _, s := range strings {
 		utf16, err := encodestr(s)
